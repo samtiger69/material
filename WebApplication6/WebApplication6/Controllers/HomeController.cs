@@ -26,5 +26,15 @@ namespace WebApplication6.Controllers
 
             return View();
         }
+
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        public ActionResult Form()
+        {
+            return View();
+        }
     }
 }
