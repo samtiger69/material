@@ -4,102 +4,151 @@
 
 <h2>Dialogs</h2>
 
-<div class="row">
-    <div class="col-md-6">
-        <input class="btn btn-primary" type="button" id="btn_alert" value="Alert" />
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-md-6">
-        <input class="btn btn-danger" type="button" id="btn_confirm" value="Confirm" />
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-md-6">
-        <input class="btn btn-warning" type="button" id="btn_dialog" value="Dialog" />
-    </div>
-</div>
 
-<div id="dialog" class="hidden">
-    <form action="" class="formName">
-        <div class="form-group">
-            <div class="md-form samo">
-                <input type="text" id="name" class="form-control">
-                <label for="name">Your name</label>
+<!--Naked Form-->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card-block">
+
+            <!--Header-->
+            <div class="text-center">
+                <h3><i class="fa fa-lock"></i> Login:</h3>
+                <hr class="mt-2 mb-2">
             </div>
+
+            <!--Body-->
             <div class="md-form">
-                <input type="text" id="age" class="form-control">
-                <label for="age">Your age</label>
+                <i class="fa fa-envelope prefix"></i>
+                <input type="text" id="form2" class="form-control">
+                <label for="form2">Your email</label>
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-lock prefix"></i>
+                <input type="password" id="form4" class="form-control">
+                <label for="form4">Your password</label>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-deep-purple">Login</button>
+            </div>
+
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer">
+            <div class="options">
+                <p>Not a member? <a href="#">Sign Up</a></p>
+                <p>Forgot <a href="#">Password?</a></p>
             </div>
         </div>
-    </form>
+        <!--Naked Form-->
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!--Naked Form-->
+        <div class="card-block">
+
+            <!--Header-->
+            <div class="text-center">
+                <h3><i class="fa fa-envelope"></i> Write to us:</h3>
+                <hr class="mt-2 mb-2">
+            </div>
+
+            <!--Body-->
+            <p>We'll write rarely, but only the best content.</p>
+            <br>
+
+            <!--Body-->
+            <div class="md-form">
+                <i class="fa fa-user prefix"></i>
+                <input type="text" id="form3" class="form-control">
+                <label for="form3">Your name</label>
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-envelope prefix"></i>
+                <input type="text" id="form2" class="form-control">
+                <label for="form2">Your email</label>
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-tag prefix"></i>
+                <input type="text" id="form32" class="form-control">
+                <label for="form34">Subject</label>
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-pencil prefix"></i>
+                <textarea type="text" id="form8" class="md-textarea"></textarea>
+                <label for="form8">Icon Prefix</label>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-default">Submit</button>
+
+                <div class="call">
+                    <br>
+                    <p>
+                        Or would you prefer to call?
+                        <br>
+                        <span><i class="fa fa-phone"> </i></span> + 01 234 565 280
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <!--Naked Form-->
+
+    </div>
+</div>
+
+
+<div id="map" class="z-depth-1" style="height: 600px"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-MY5bQo3yuGryNR5AyqTx1a1MEJ5kRhI&callback=initMap"
+        type="text/javascript"></script>
 <script>
+    var map, infoWindow;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
     $(document).ready(function () {
-
-        // Alert button on click event
-        $('#btn_alert').click(() => {
-            $.alert({
-                title: 'Greetings!',
-                content: 'Hello samo!',
-            });
-        });
-
-        // Confirm button on click event
-        $('#btn_confirm').click(() => {
-            $.confirm({
-                title: 'Confirm!',
-                draggable: true,
-                content: 'Simple confirm!',
-                buttons: {
-                    confirm: function () {
-                        $.alert('Confirmed!');
-                    },
-                    cancel: function () {
-                        $.alert('Canceled!');
-                    }
-                }
-            });
-        });
-
-        // Dialog button on click event
-        $('#btn_dialog').click(() => {
-            $.confirm({
-                title: 'Prompt!',
-                content: $('#dialog').html(),
-                buttons: {
-                    formSubmit: {
-                        text: 'Submit',
-                        btnClass: 'btn-blue',
-                        action: function () {
-                            var name = this.$content.find('#name').val();
-                            var age = this.$content.find('#age').val();
-                            if (!name) {
-                                $.alert('provide a valid name');
-                                return false;
-                            }
-                            $.alert('Your name is ' + name + '<br />' + 'Your age is ' + age);
-                        }
-                    },
-                    cancel: function () {
-                        //close
-                    },
-                },
-                onContentReady: function () {
-                    // bind to events
-                    var jc = this;
-                    this.$content.find('form').on('submit', function (e) {
-                        // if the user submits the form by pressing enter in the field.
-                        e.preventDefault();
-                        jc.$$formSubmit.trigger('click'); // reference the button and click it
-                    });
-                }
-            });
-        });
-
-
+       
     });
 </script>
