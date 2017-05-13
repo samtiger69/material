@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Material Design</h1>
+    <p class="lead">This site uses material design theme and will be used in the future to test new designs</p>
+</div>
+
+<div class="row"><!--row-->
+    <div class="col-md-4"><!--card-->
+        <div class="card text-center">
+            <div class="card-header default-color  white-text">
+                Alert
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Simple Alert Dialog</h4>
+                <p class="card-text">This will only show a popup message with a title</p>
+                <input class="btn btn-default" type="button" id="btn_alert" value="Alert" />
+            </div>
+            <div class="card-footer text-muted default-color  white-text">
+                <p>Basic Alert</p>
+            </div>
+        </div>
+    </div><!--card-->
+
+    <div class="col-md-4">
+        <!--card-->
+        <div class="card text-center">
+            <div class="card-header default-color  white-text">
+                Confirm
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Dialog with confirm and cancel buttons</h4>
+                <p class="card-text">Draggable Confirmation Dialog</p>
+                <input class="btn btn-default" type="button" id="btn_confirm" value="Confirm" />
+            </div>
+            <div class="card-footer text-muted default-color  white-text">
+                <p>Draggable Dialog</p>
+            </div>
+        </div>
+    </div><!--card-->
+
+    <div class="col-md-4">
+        <!--card-->
+        <div class="card text-center">
+            <div class="card-header default-color  white-text">
+                Dialog with input
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Dialog with input fields</h4>
+                <p class="card-text">Dialog with input fields and submit button</p>
+                <input class="btn btn-default" type="button" id="btn_dialog" value="Dialog" />
+            </div>
+            <div class="card-footer text-muted default-color  white-text">
+                <p>Dialog Form</p>
+            </div>
+        </div>
+    </div><!--card-->
+</div><!--row-->
+
+<div id="dialog" class="hidden">
+    <form action="" class="formName">
+        <div class="form-group">
+            <div class="md-form samo">
+                <input type="text" id="name" class="form-control">
+                <label for="name">Your name</label>
+            </div>
+            <div class="md-form">
+                <input type="text" id="age" class="form-control">
+                <label for="age">Your age</label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        // Alert button on click event
+        $('#btn_alert').click(() => {
+            $.alert({
+                title: 'Greetings!',
+                content: 'Hello samo!',
+            });
+        });
+
+        // Confirm button on click event
+        $('#btn_confirm').click(() => {
+            $.confirm({
+                title: 'Confirm!',
+                draggable: true,
+                content: 'Simple confirm!',
+                buttons: {
+                    confirm: function () {
+                        $.alert('Confirmed!');
+                    },
+                    cancel: function () {
+                        $.alert('Canceled!');
+                    }
+                }
+            });
+        });
+
+        // Dialog button on click event
+        $('#btn_dialog').click(() => {
+            $.confirm({
+                title: 'Prompt!',
+                content: $('#dialog').html(),
+                buttons: {
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                            var name = this.$content.find('#name').val();
+                            var age = this.$content.find('#age').val();
+                            if (!name) {
+                                $.alert('provide a valid name');
+                                return false;
+                            }
+                            $.alert('Your name is ' + name + '<br />' + 'Your age is ' + age);
+                        }
+                    },
+                    cancel: function () {
+                        //close
+                    },
+                },
+                onContentReady: function () {
+                    // bind to events
+                    var jc = this;
+                    this.$content.find('form').on('submit', function (e) {
+                        // if the user submits the form by pressing enter in the field.
+                        e.preventDefault();
+                        jc.$$formSubmit.trigger('click'); // reference the button and click it
+                    });
+                }
+            });
+        });
+
+
+    });
+</script>

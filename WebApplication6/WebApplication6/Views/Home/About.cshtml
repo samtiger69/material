@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<h2>Dialogs</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <input class="btn btn-primary" type="button" id="btn_alert" value="Alert" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <input class="btn btn-danger" type="button" id="btn_confirm" value="Confirm" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <input class="btn btn-warning" type="button" id="btn_dialog" value="Dialog" />
+    </div>
+</div>
+
+<div id="dialog" class="hidden">
+    <form action="" class="formName">
+        <div class="form-group">
+            <div class="md-form samo">
+                <input type="text" id="name" class="form-control">
+                <label for="name">Your name</label>
+            </div>
+            <div class="md-form">
+                <input type="text" id="age" class="form-control">
+                <label for="age">Your age</label>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // Alert button on click event
+        $('#btn_alert').click(() => {
+            $.alert({
+                title: 'Greetings!',
+                content: 'Hello samo!',
+            });
+        });
+
+        // Confirm button on click event
+        $('#btn_confirm').click(() => {
+            $.confirm({
+                title: 'Confirm!',
+                draggable: true,
+                content: 'Simple confirm!',
+                buttons: {
+                    confirm: function () {
+                        $.alert('Confirmed!');
+                    },
+                    cancel: function () {
+                        $.alert('Canceled!');
+                    }
+                }
+            });
+        });
+
+        // Dialog button on click event
+        $('#btn_dialog').click(() => {
+            $.confirm({
+                title: 'Prompt!',
+                content: $('#dialog').html(),
+                buttons: {
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                            var name = this.$content.find('#name').val();
+                            var age = this.$content.find('#age').val();
+                            if (!name) {
+                                $.alert('provide a valid name');
+                                return false;
+                            }
+                            $.alert('Your name is ' + name + '<br />' + 'Your age is ' + age);
+                        }
+                    },
+                    cancel: function () {
+                        //close
+                    },
+                },
+                onContentReady: function () {
+                    // bind to events
+                    var jc = this;
+                    this.$content.find('form').on('submit', function (e) {
+                        // if the user submits the form by pressing enter in the field.
+                        e.preventDefault();
+                        jc.$$formSubmit.trigger('click'); // reference the button and click it
+                    });
+                }
+            });
+        });
+
+
+    });
+</script>
