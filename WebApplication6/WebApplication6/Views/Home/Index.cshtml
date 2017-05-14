@@ -1,6 +1,20 @@
-﻿@{
+﻿@using System.Globalization
+@using System.Threading; 
+@{
     ViewBag.Title = "Home Page";
 }
+
+<ul style="margin-top:10px;">
+    @{
+        CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+
+        <li><a href="/Home/ChangeCurrentCulture/0">English</a></li>
+
+        <li><a href="/Home/ChangeCurrentCulture/1">Arabic</a></li>
+    }
+</ul>
+
+
 
 <div class="jumbotron z-depth-3">
     <h1>Material Design</h1>

@@ -1,0 +1,45 @@
+﻿@model WebApplication6.Models.RegisterModel
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled.min.css" rel="stylesheet">
+<link href="~/Content/Register.css" rel="stylesheet" />
+<div class="card">
+    <div class="card-block">
+        <!--Header-->
+        <div class="form-header primary-color">
+            <h3><i class="fa fa-user"></i> @Resource.Signup</h3>
+        </div>        
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            <div class="md-form">
+                <i class="fa fa-user prefix"></i>
+                @Html.EditorFor(m=>m.Username, new { @class = "form-control" })
+                @Html.LabelFor(m=>m.Username)
+            </div>
+            <div class="md-form">
+                <i class="fa fa-envelope prefix"></i>
+                @Html.EditorFor(m => m.Email, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Email)
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-lock prefix"></i>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Password)
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-lock prefix"></i>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.LabelFor(m => m.ConfirmPassword)
+            </div>
+
+            <div class="text-center">
+                <button  type="submit" class="btn btn-primary btn-rounded ">Sign Up</button>
+                <hr>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/compiled.min.js"></script>
