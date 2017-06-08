@@ -1,5 +1,6 @@
-﻿@using System.Globalization
-@using System.Threading; 
+﻿@model List<WebApplication6.Models.TheImage>
+@using System.Globalization
+@using System.Threading;
 @{
     ViewBag.Title = "Home Page";
 }
@@ -14,15 +15,19 @@
     }
 </ul>
 
-
+<span>
+    @Resource.Welcome
+</span>
 
 <div class="jumbotron z-depth-3">
     <h1>Material Design</h1>
     <p class="lead">This site uses material design theme and will be used in the future to test new designs</p>
 </div>
 
-<div class="row"><!--row-->
-    <div class="col-md-4"><!--card-->
+<div class="row">
+    <!--row-->
+    <div class="col-md-4">
+        <!--card-->
         <div class="card text-center">
             <div class="card-header default-color  white-text">
                 Alert
@@ -72,87 +77,24 @@
         </div>
     </div><!--card-->
 </div><!--row-->
+<div>
+    <input type="file" id="FileUpload" name="file" multiple class="btn btn-default">
+    <input type="button" id="Upload" value="Upload" class="btn btn-default" />
+</div>
 
-<div id="dialog" class="hidden">
-    <form action="" class="formName">
-        <div class="form-group">
-            <div class="md-form samo">
-                <input type="text" id="name" class="form-control">
-                <label for="name">Your name</label>
-            </div>
-            <div class="md-form">
-                <input type="text" id="age" class="form-control">
-                <label for="age">Your age</label>
-            </div>
-        </div>
-    </form>
+<div id="images">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <img id="@item.Id" onclick="deleteImage(this)" style="height:400px; width:400px" src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.ImageContent))" />
+        }
+    }
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
-
 <script>
-    $(document).ready(function () {
-
-        // Alert button on click event
-        $('#btn_alert').click(() => {
-            $.alert({
-                title: 'Greetings!',
-                content: 'Hello samo!',
-            });
-        });
-
-        // Confirm button on click event
-        $('#btn_confirm').click(() => {
-            $.confirm({
-                title: 'Confirm!',
-                draggable: true,
-                content: 'Simple confirm!',
-                buttons: {
-                    confirm: function () {
-                        $.alert('Confirmed!');
-                    },
-                    cancel: function () {
-                        $.alert('Canceled!');
-                    }
-                }
-            });
-        });
-
-        // Dialog button on click event
-        $('#btn_dialog').click(() => {
-            $.confirm({
-                title: 'Prompt!',
-                content: $('#dialog').html(),
-                buttons: {
-                    formSubmit: {
-                        text: 'Submit',
-                        btnClass: 'btn-blue',
-                        action: function () {
-                            var name = this.$content.find('#name').val();
-                            var age = this.$content.find('#age').val();
-                            if (!name) {
-                                $.alert('provide a valid name');
-                                return false;
-                            }
-                            $.alert('Your name is ' + name + '<br />' + 'Your age is ' + age);
-                        }
-                    },
-                    cancel: function () {
-                        //close
-                    },
-                },
-                onContentReady: function () {
-                    // bind to events
-                    var jc = this;
-                    this.$content.find('form').on('submit', function (e) {
-                        // if the user submits the form by pressing enter in the field.
-                        e.preventDefault();
-                        jc.$$formSubmit.trigger('click'); // reference the button and click it
-                    });
-                }
-            });
-        });
-
-
-    });
+    var _deleteAction = '@Url.Action("DeleteImage")';
+    var _uploadAction = '@Url.Action("Upload")';
 </script>
+<script src="~/Scripts/index.js"></script>

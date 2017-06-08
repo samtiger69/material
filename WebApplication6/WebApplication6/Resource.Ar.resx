@@ -132,4 +132,7 @@
   <data name="Username" xml:space="preserve">
     <value>إسم المستخدم</value>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>مرحبا</value>
+  </data>
 </root>

@@ -104,5 +104,14 @@ namespace WebApplication6 {
                 return ResourceManager.GetString("Username", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
     }
 }

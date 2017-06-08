@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -9,9 +8,6 @@
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -26,16 +22,6 @@ textarea {
 .samo{
     padding:1px !important;
     line-height:3px;
-}
-
-
-
-.card-header{
-    height:35px !important;
-}
-
-.jumbotron {
-    margin-top:20px !important;
 }
 
 .container {
