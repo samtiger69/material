@@ -89,5 +89,30 @@ namespace WebApplication6.Models
                 throw ex;
             }
         }
+
+        public byte[] GetImageById(int id)
+        {
+            try
+            {
+                byte[] result = null;
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    var command = new SqlCommand()
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        CommandText = "GetImage",
+                        Connection = connection
+                    };
+                    command.Parameters.AddWithValue("@Id", id);
+                    connection.Open();
+                    result = (byte[])command.ExecuteScalar();
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

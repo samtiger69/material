@@ -54,7 +54,8 @@ $(document).ready(function () {
             processData: false,
             success: function (response) {
                 for (var i = 0; i < response.length; i++) {
-                    $('#images').append(response[i]);
+                    var imagePath = '<img id=' + response[i] + ' onclick="deleteImage(this)" style="width:400px; height:400px;" src=' + _getImage + '/' + response[i] + ' />';
+                    $('#images').append(imagePath);
                 }
             },
             error: function (error) {

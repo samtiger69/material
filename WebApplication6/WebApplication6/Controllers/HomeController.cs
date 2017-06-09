@@ -16,7 +16,7 @@ namespace WebApplication6.Controllers
         {
             try
             {
-                var response = new List<string>();
+                var response = new List<int>();
                 if(file != null && file.Length > 0)
                 {
                     foreach(var part in file)
@@ -30,13 +30,12 @@ namespace WebApplication6.Controllers
                             }
                             ImageContext db = new ImageContext();
                             var imgId = db.UploadImage(toBeSavedInTheDatabase);
-                            response.Add(String.Format("<img id='{0}'  onclick='deleteImage(this)' style='height: 400px; width: 400px' src=data:image/jpg;base64,{1} />", imgId, Convert.ToBase64String(toBeSavedInTheDatabase)));
+                            response.Add(imgId);
                         }
                     }
                 }
                 return new JsonResult
                 {
-                    MaxJsonLength = int.MaxValue,
                     Data = response
                 };
             }
@@ -66,6 +65,13 @@ namespace WebApplication6.Controllers
             {
                 return ex.Message;
             }
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            ImageContext db = new ImageContext();
+            var model = db.GetImageById(id);
+            return File(model, "image/jpg");
         }
 
         public ActionResult Index()
