@@ -36,6 +36,7 @@ namespace WebApplication6.Controllers
                 }
                 return new JsonResult
                 {
+                    MaxJsonLength = int.MaxValue,
                     Data = response
                 };
             }

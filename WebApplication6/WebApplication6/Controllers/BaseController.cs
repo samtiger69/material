@@ -23,8 +23,14 @@ namespace WebApplication6.Controllers
             }
             // calling CultureHelper class properties for setting  
             CultureHelper.CurrentCulture = culture;
-
-            base.ExecuteCore();
+            try
+            {
+                base.ExecuteCore();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected override bool DisableAsyncSupport
