@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -7,7 +8,7 @@ namespace WebApplication6.Models
 {
     public class ImageContext
     {
-        private const string _connectionString = @"Data Source=DESKTOP-U7FBHUA\SQLEXPRESS;Initial Catalog=UploadImageDB;Integrated Security=True;Pooling=False;MultipleActiveResultSets=True;Application Name=EntityFramework";
+        private string _connectionString = ConfigurationManager.ConnectionStrings["ImageDatabase"].ConnectionString;
 
         public int UploadImage(byte[] image)
         {
