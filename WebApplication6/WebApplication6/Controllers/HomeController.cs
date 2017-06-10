@@ -55,7 +55,7 @@ namespace WebApplication6.Controllers
             {
                 ImageContext db = new ImageContext();
                 var toBeDeleted = db.DeleteImage(id);
-                if(toBeDeleted == 1)
+                if(toBeDeleted != 0)
                 {
                     return String.Format("Image with Id: {0} has been deleted from the database", id);
                 }
