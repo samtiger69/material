@@ -79,7 +79,6 @@
 </div><!--row-->
 <div>
     <input type="file" id="FileUpload" name="file" multiple class="btn btn-default">
-    <input type="button" id="Upload" value="Upload" class="btn btn-default" />
 </div>
 
 <div id="images">
@@ -87,9 +86,9 @@
     {
         foreach (var item in Model)
         {
-            <img id="@item.Id" onclick="deleteImage(this)" style="height:400px; width:400px" src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.ImageContent))" />
+            <img id="@item.Id" onclick="deleteImage(this)" style="height:400px; width:400px" src="@Url.Action("GetImage", new { id= item.Id })" />
         }
-    }
+            }
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>

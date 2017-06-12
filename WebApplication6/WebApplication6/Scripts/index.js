@@ -17,6 +17,32 @@ function showConfirm(title, content, confirm, cancel) {
     });
 }
 
+function uploadImages() {
+    var formData = new FormData();
+    var arr = [];
+    var totalFiles = document.getElementById("FileUpload").files.length;
+    for (var i = 0; i < totalFiles; i++) {
+        var file = document.getElementById("FileUpload").files[i];
+        formData.append("file", file);
+    }
+    $.ajax({
+        type: "POST",
+        url: _uploadAction,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            for (var i = 0; i < response.length; i++) {
+                var imagePath = '<img id=' + response[i] + ' onclick="deleteImage(this)" style="width:400px; height:400px;" src=' + _getImage + '/' + response[i] + ' />';
+                $('#images').append(imagePath);
+            }
+        },
+        error: function (error) {
+            showAlert('Error', error);
+        }
+    });
+}
+
 function deleteImage(img) {
     showConfirm('Delete!', 'Do you want to delete this image',
         function () {
@@ -38,33 +64,11 @@ function deleteImage(img) {
 
 $(document).ready(function () {
 
-    $("#Upload").click(function () {
-        var formData = new FormData();
-        var arr = [];
-        var totalFiles = document.getElementById("FileUpload").files.length;
-        for (var i = 0; i < totalFiles; i++) {
-            var file = document.getElementById("FileUpload").files[i];
-            formData.append("file", file);
-        }
-        $.ajax({
-            type: "POST",
-            url: _uploadAction,
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                for (var i = 0; i < response.length; i++) {
-                    var imagePath = '<img id=' + response[i] + ' onclick="deleteImage(this)" style="width:400px; height:400px;" src=' + _getImage + '/' + response[i] + ' />';
-                    $('#images').append(imagePath);
-                }
-            },
-            error: function (error) {
-                showAlert('Error', error);
-            }
-        });
+    $('#FileUpload').on('change', (e) => {
+        uploadImages();
+        $('#FileUpload').val('');
     });
-
-
+    
     // Alert button on click event
     $('#btn_alert').click(() => {
         showAlert('Alert', 'Hello samo');
